@@ -10,9 +10,8 @@ func main() {
     var deck []card.Card = card.BuildDeck()
     card.Shuffle(deck)
 
-	var player_hand []card.Card = card.DealHand(deck)
-	card.Shuffle(deck)
-	var dealer_hand []card.Card = card.DealHand(deck)
+	deck, player_hand := card.DealHand(deck)
+	deck, dealer_hand := card.DealHand(deck)
 	
 	fmt.Println("---------PLAYER---------")
 	for x := 0; x < len(player_hand); x++ {

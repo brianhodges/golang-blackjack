@@ -39,12 +39,12 @@ func Shuffle(deck []Card) {
 	}
 }
 
-func DealHand(deck []Card) []Card {
+func DealHand(deck []Card) ([]Card, []Card) {
 	var hand []Card
 	for x := 0; x < 2; x++ {
 		hand = append(hand, deck[x])
-		//remove
-		//deck = append(deck[:x], deck[x+1:]...)
+		deck[x] = deck[len(deck)-1] 
+		deck = deck[:len(deck)-1]
 	}
-	return hand
+	return deck, hand
 }
