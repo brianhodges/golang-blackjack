@@ -3,11 +3,20 @@ package card
 import (
 	"time"
 	"math/rand"
+    "strconv"
+    "log"
 )
 
 type Card struct {
     Suit string
     Rank string
+}
+
+//CheckError logs error
+func CheckError(err error) {
+	if err != nil {
+		log.Println("Error: ", err)
+	}
 }
 
 func BuildDeck() []Card {
@@ -47,4 +56,20 @@ func DealHand(deck []Card) ([]Card, []Card) {
 		deck = deck[:len(deck)-1]
 	}
 	return deck, hand
+}
+
+func CardValue(card Card) int {
+    if card.Rank == "King" || card.Rank == "Queen" || card.Rank == "Jack" {
+        return 10
+    } else if card.Rank == "Ace" {
+        return 11
+    } else {
+        r, err := strconv.Atoi(card.Rank)
+        CheckError(err)
+        return r
+    }
+}
+
+func IsDoubleRank(hand []Card) bool {
+    return hand[0].Rank == hand[1].Rank
 }
