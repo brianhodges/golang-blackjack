@@ -1,5 +1,10 @@
 package card
 
+import (
+	"time"
+	"math/rand"
+)
+
 type Card struct {
     Suit string
     Rank string
@@ -20,4 +25,26 @@ func BuildDeck() []Card {
         }
     }
     return deck
+}
+
+func Shuffle(deck []Card) {
+	for x := 0; x < 10; x++ {
+		r := rand.New(rand.NewSource(time.Now().Unix()))
+		for len(deck) > 0 {
+			n := len(deck)
+			randIndex := r.Intn(n)
+			deck[n-1], deck[randIndex] = deck[randIndex], deck[n-1]
+			deck = deck[:n-1]
+		}
+	}
+}
+
+func DealHand(deck []Card) []Card {
+	var hand []Card
+	for x := 0; x < 2; x++ {
+		hand = append(hand, deck[x])
+		//remove
+		//deck = append(deck[:x], deck[x+1:]...)
+	}
+	return hand
 }
